@@ -1,13 +1,15 @@
-import React from "react";
 import Feedback from "../../components/Feedback/Feedback";
 
-const Options = ({ handleButtonClick }) => {
+const Options = ({ handleFeedbackClick }) => {
+
   return (
     <div>
-      <Feedback feedbackType="Good" onClick={handleButtonClick} />
-      <Feedback feedbackType="Neutral" onClick={handleButtonClick} />
-      <Feedback feedbackType="Bad" onClick={handleButtonClick} />
-    </div>
+      <button onClick={() => handleFeedbackClick("good")}>Good</button>
+      <button onClick={() => handleFeedbackClick("neutral")}>Neutral</button>
+      <button onClick={() => handleFeedbackClick("bad")}>Bad</button>
+{totalFeedback > 0 && (<button onClick={resetFeedback}>Reset</button>)}
+      <button handleResetClick={handleResetClick}>Reset</button>
+      </div>
   );
 };
 

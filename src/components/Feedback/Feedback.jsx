@@ -1,17 +1,12 @@
-import React, { useState } from "react";
 
-const Feedback = ({ feedbackType, onClick }) => {
-  const [clicks, setClicks] = useState(0);
-
-  const handleClick = () => {
-    setClicks(clicks + 1);
-    onClick(feedbackType);
-  };
+const Feedback = ({ values }) => {
+  const { good, neutral, bad } = values;
 
   return (
     <div>
-      <button onClick={handleClick}>{feedbackType}</button>
-      <p>{clicks}</p>
+      <p>Good: {good}</p>
+      <p>Neutral: {neutral}</p>
+      <p>Bad: {bad}</p>
     </div>
   );
 };

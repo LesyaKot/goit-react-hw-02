@@ -5,40 +5,45 @@ import Description from "./components/Description/Description";
 import Feedback from "./components/Feedback/Feedback";
 import Options from "./components/Options/Options";
 
+
 function App() {
-  const [good, setGood] = useState(0);
-  const [neutral, setNeutral] = useState(0);
-  const [bad, setBad] = useState(0);
+  const [values, setValues] = useState({ good: 0, neutral: 0, bad: 0 });
 
-  const [buttonClick, setButtonClick] = useState(false);
-
-  const totalFeedback = good + neutral + bad;
-  
-  const handleButtonClick = () => {
-    setButtonClick(true);
+  const handleFeedbackClick = (feedbackType) => {
+    setValues(() => ({
+      ...values,
+      [feedbackType]: values[feedbackType] + 1
+    }));
   };
+
+  const totalFeedback = values.good + values.neutral + values.bad;
+
+
+// const [resetClick, setResetClick] = useState (false)
+// const handleResetClick = (totalFeedback) => {
+//   setResetClick(true);
+// };
+const resetFeedback = () => {
+  setGood(0);
+  setNeutral(0);
+  setBad(0);
+};
 
   return (
     <>
-      <Description />
+          <Description />
 
-      <Options handleButtonClick={handleButtonClick} />
+      <Options handleFeedbackClick={handleFeedbackClick}
+       totalFeedback={totalFeedback}
+        resetFeedback={resetFeedback}/>
 
-      {buttonClick > 0 ? (
-        <Feedback good={good} neutral={neutral} bad={bad} />
+      {totalFeedback > 0 ? (
+        <Feedback values={values} />
       ) : (
         <p>No feedback yet</p>
-        
       )}
-      {/* <Feedback /> */}
     </>
   );
 }
 
 export default App;
-
-// const [feedbackTypes, setFeedbackTypes] = useState({
-//     good: 0,
-//   neutral: 0,
-//   bad: 0
-//   });
