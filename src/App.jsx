@@ -10,12 +10,10 @@ function App() {
   const [neutral, setNeutral] = useState(0);
   const [bad, setBad] = useState(0);
 
-  const totalFeedback = good + neutral + bad;
-
-  const Notification = () => {
-    return <p>No feedback yet</p>;
-  };
   const [buttonClick, setButtonClick] = useState(false);
+
+  const totalFeedback = good + neutral + bad;
+  
   const handleButtonClick = () => {
     setButtonClick(true);
   };
@@ -25,11 +23,14 @@ function App() {
       <Description />
 
       <Options handleButtonClick={handleButtonClick} />
-      {totalFeedback > 0 || buttonClick ? (
+
+      {buttonClick > 0 ? (
         <Feedback good={good} neutral={neutral} bad={bad} />
       ) : (
-        <Notification />
+        <p>No feedback yet</p>
+        
       )}
+      {/* <Feedback /> */}
     </>
   );
 }

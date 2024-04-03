@@ -1,29 +1,14 @@
-import { useState } from "react";
+import React from "react";
+import Feedback from "../../components/Feedback/Feedback";
 
-const UpdateFeedback = ({ feedbackType }) => {
-    const [clicks, setClicks] = useState(0);
-  
-    const handleClick = () => {
-      setClicks(clicks + 1);
-    };
-  
-    return (
-      <div>
-        <button onClick={handleClick}>{feedbackType}</button>
-        <p>{clicks}</p>
-      </div>
-    );
-  };
-  
-const Options = () => {
-    return (
-      <div>
-        <UpdateFeedback feedbackType ="Good" />
-        <UpdateFeedback feedbackType ="Neutral" />
-        <UpdateFeedback feedbackType ="Bad" />
-      </div>
-    );
-  };
-  
- 
+const Options = ({ handleButtonClick }) => {
+  return (
+    <div>
+      <Feedback feedbackType="Good" onClick={handleButtonClick} />
+      <Feedback feedbackType="Neutral" onClick={handleButtonClick} />
+      <Feedback feedbackType="Bad" onClick={handleButtonClick} />
+    </div>
+  );
+};
+
 export default Options;
