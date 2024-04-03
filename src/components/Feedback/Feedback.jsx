@@ -1,4 +1,3 @@
-
 const Feedback = ({ values }) => {
   const { good, neutral, bad } = values;
 
