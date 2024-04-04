@@ -1,8 +1,10 @@
-import Feedback from "../../components/Feedback/Feedback";
+// import Feedback from "../../components/Feedback/Feedback";
+
+import styles from "./Options.module.css";
 
 const Options = ({ handleFeedbackClick, totalFeedback, resetFeedback }) => {
   return (
-    <div>
+    <div className={styles.wrapper}>
       <button onClick={() => handleFeedbackClick("good")}>Good</button>
       <button onClick={() => handleFeedbackClick("neutral")}>Neutral</button>
       <button onClick={() => handleFeedbackClick("bad")}>Bad</button>

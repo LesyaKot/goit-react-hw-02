@@ -1,35 +1,45 @@
-import { useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./App.css";
 
 import Description from "./components/Description/Description";
 import Feedback from "./components/Feedback/Feedback";
 import Options from "./components/Options/Options";
 
+const getInitialClicks = () => {
+  const savedClicks = localStorage.getItem("clicks");
+  return savedClicks !== null ? JSON.parse(savedClicks) : null;
+};
 
 function App() {
-  const [values, setValues] = useState({ good: 0, neutral: 0, bad: 0 });
+  const [clicks, setClicks] = useState(
+    getInitialClicks() || { good: 0, neutral: 0, bad: 0 }
+  );
   const [totalFeedback, setTotalFeedback] = useState(0);
   const [positivePercentage, setPositivePercentage] = useState(0);
 
   useEffect(() => {
-    const { good, neutral, bad } = values;
+    const { good, neutral, bad } = clicks || { good: 0, neutral: 0, bad: 0 };
     const total = good + neutral + bad;
     const positive = Math.round((good / total) * 100);
 
     setTotalFeedback(total);
     setPositivePercentage(isNaN(positive) ? 0 : positive);
-  }, [values]);
+  }, [clicks]);
 
   const handleFeedbackClick = (feedbackType) => {
-    setValues(() => ({
-      ...values,
-      [feedbackType]: values[feedbackType] + 1,
+    setClicks((clicks) => ({
+      ...clicks,
+      [feedbackType]: clicks[feedbackType] + 1,
     }));
   };
 
   const resetFeedback = () => {
-    setValues({ good: 0, neutral: 0, bad: 0 });
+    setClicks({ good: 0, neutral: 0, bad: 0 });
   };
+
+  useEffect(() => {
+    localStorage.setItem("clicks", JSON.stringify(clicks));
+  }, [clicks]);
 
   return (
     <>
@@ -41,9 +51,9 @@ function App() {
       />
       {totalFeedback > 0 ? (
         <>
-          <Feedback values={values} />
-          <p>Total feedback: {totalFeedback}</p>
-          <p>Positive percentage: {positivePercentage}%</p>
+          <Feedback clicks={clicks} />
+          <p>Total: {totalFeedback}</p>
+          <p>Positive: {positivePercentage}%</p>
         </>
       ) : (
         <p>No feedback yet</p>

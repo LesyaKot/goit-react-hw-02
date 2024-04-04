@@ -1,11 +1,15 @@
-const Feedback = ({ values }) => {
-  const { good, neutral, bad } = values;
+import styles from './Feedback.module.css'
+
+const Feedback = ({ clicks }) => {
+  const { good, neutral, bad, positivePercentage, total } = clicks;
 
   return (
-    <div>
+    <div className={styles.wrapper}>
       <p>Good: {good}</p>
       <p>Neutral: {neutral}</p>
       <p>Bad: {bad}</p>
+      {/* <p>Total: {total}</p>
+      <p>{positivePercentage}</p> */}
     </div>
   );
 };
