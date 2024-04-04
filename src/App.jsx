@@ -1,13 +1,24 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
 import Description from "./components/Description/Description";
 import Feedback from "./components/Feedback/Feedback";
 import Options from "./components/Options/Options";
 
+
 function App() {
   const [values, setValues] = useState({ good: 0, neutral: 0, bad: 0 });
-  const [buttonsDisabled, setButtonsDisabled] = useState(false);
+  const [totalFeedback, setTotalFeedback] = useState(0);
+  const [positivePercentage, setPositivePercentage] = useState(0);
+
+  useEffect(() => {
+    const { good, neutral, bad } = values;
+    const total = good + neutral + bad;
+    const positive = Math.round((good / total) * 100);
+
+    setTotalFeedback(total);
+    setPositivePercentage(isNaN(positive) ? 0 : positive);
+  }, [values]);
 
   const handleFeedbackClick = (feedbackType) => {
     setValues(() => ({
@@ -16,25 +27,24 @@ function App() {
     }));
   };
 
-  const totalFeedback = values.good + values.neutral + values.bad;
-
   const resetFeedback = () => {
-    setValues({ setGood: 0, setNeutral: 0, setBad: 0 });
-    setButtonsDisabled(false);
+    setValues({ good: 0, neutral: 0, bad: 0 });
   };
 
   return (
     <>
       <Description />
-
       <Options
         handleFeedbackClick={handleFeedbackClick}
         totalFeedback={totalFeedback}
         resetFeedback={resetFeedback}
       />
-
       {totalFeedback > 0 ? (
-        <Feedback values={values} />
+        <>
+          <Feedback values={values} />
+          <p>Total feedback: {totalFeedback}</p>
+          <p>Positive percentage: {positivePercentage}%</p>
+        </>
       ) : (
         <p>No feedback yet</p>
       )}

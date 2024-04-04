@@ -11,5 +11,4 @@ const Options = ({ handleFeedbackClick, totalFeedback, resetFeedback }) => {
     </div>
   );
 };
-
 export default Options;
