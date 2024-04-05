@@ -1,4 +1,4 @@
-import styles from './Description.module.css'
+import styles from "./Description.module.css";
 
 const Description = () => {
   return (
@@ -9,7 +9,7 @@ const Description = () => {
         options below.
       </p>
     </div>
- );
+  );
 };
 
 export default Description;

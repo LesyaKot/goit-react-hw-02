@@ -1,5 +1,3 @@
-// import Feedback from "../../components/Feedback/Feedback";
-
 import styles from "./Options.module.css";
 
 const Options = ({ handleFeedbackClick, totalFeedback, resetFeedback }) => {
